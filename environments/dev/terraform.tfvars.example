@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is gitignored.
+
+aws_region  = "us-east-1"
+name_prefix = "dev"
+
+default_tags = {
+  Team  = "platform"
+  Owner = "patrick"
+}
