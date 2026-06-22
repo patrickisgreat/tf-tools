@@ -67,7 +67,7 @@ terraform plan
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
-| [`aws/sns`](modules/aws/sns) | AWS | stable | SNS topic with SSE, FIFO, policies, and inline subscriptions |
+| [`aws/iam-role`](modules/aws/iam-role) | AWS | stable | IAM role with built-or-raw trust policy, managed + inline policies |
 | [`gcp/gcs-bucket`](modules/gcp/gcs-bucket) | GCP | stable | GCS bucket with UBLA, versioning, lifecycle rules, CMEK |
 | [`replicate/deployment`](modules/replicate/deployment) | Replicate (REST) | **experimental** | Managed AI deployment via the `restapi` provider |
 
