@@ -68,6 +68,7 @@ terraform plan
 |--------|----------|--------|-------------|
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
 | [`gcp/gcs-bucket`](modules/gcp/gcs-bucket) | GCP | stable | GCS bucket with UBLA, versioning, lifecycle rules, CMEK |
+| [`gcp/pubsub`](modules/gcp/pubsub) | GCP | stable | Pub/Sub topic with pull/push subscriptions, filters, DLQ |
 | [`replicate/deployment`](modules/replicate/deployment) | Replicate (REST) | **experimental** | Managed AI deployment via the `restapi` provider |
 
 ## Conventions
