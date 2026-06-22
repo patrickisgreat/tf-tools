@@ -1,0 +1,3 @@
+Experimental: wraps the live Replicate REST API via the restapi provider.
+Excluded from CI `terraform validate` until verified end-to-end against the API.
+See README.md "Before relying on it". Remove this file once it round-trips cleanly.
