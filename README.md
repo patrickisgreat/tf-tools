@@ -67,6 +67,7 @@ terraform plan
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
+| [`gcp/artifact-registry`](modules/gcp/artifact-registry) | GCP | stable | Artifact Registry repo for images/packages (GCR/ECR analog) |
 | [`gcp/gcs-bucket`](modules/gcp/gcs-bucket) | GCP | stable | GCS bucket with UBLA, versioning, lifecycle rules, CMEK |
 | [`replicate/deployment`](modules/replicate/deployment) | Replicate (REST) | **experimental** | Managed AI deployment via the `restapi` provider |
 
