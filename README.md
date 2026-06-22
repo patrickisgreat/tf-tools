@@ -71,6 +71,7 @@ terraform plan
 | [`aws/firehose`](modules/aws/firehose) | AWS | stable | Kinesis Firehose delivery stream to S3 with buffering + compression |
 | [`aws/sqs`](modules/aws/sqs) | AWS | stable | SQS queue with SSE, FIFO, and dead-letter redrive |
 | [`gcp/gcs-bucket`](modules/gcp/gcs-bucket) | GCP | stable | GCS bucket with UBLA, versioning, lifecycle rules, CMEK |
+| [`gcp/pubsub`](modules/gcp/pubsub) | GCP | stable | Pub/Sub topic with pull/push subscriptions, filters, DLQ |
 | [`replicate/deployment`](modules/replicate/deployment) | Replicate (REST) | **experimental** | Managed AI deployment via the `restapi` provider |
 
 ## Conventions
