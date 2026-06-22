@@ -67,6 +67,7 @@ terraform plan
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
+| [`gcp/artifact-registry`](modules/gcp/artifact-registry) | GCP | stable | Artifact Registry repo for images/packages (GCR/ECR analog) |
 | [`aws/ecs-service`](modules/aws/ecs-service) | AWS | stable | Fargate/EC2 ECS service + task definition, optional load balancer |
 | [`aws/firehose`](modules/aws/firehose) | AWS | stable | Kinesis Firehose delivery stream to S3 with buffering + compression |
 | [`aws/sqs`](modules/aws/sqs) | AWS | stable | SQS queue with SSE, FIFO, and dead-letter redrive |
