@@ -99,15 +99,22 @@ See [docs/CONVENTIONS.md](docs/CONVENTIONS.md). The short version:
 
 ## Roadmap
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for the full plan and current state. The near-term
-shape:
+The goal is to deploy **any kind of application** to AWS or GCP — Go, Python, Node,
+Java/Kotlin, Rust, C++, C#/.NET, Swift, GraphQL and REST/gRPC APIs, AI/ML workloads — on
+containers with real autoscaling, backed by databases, data lakes, and ETL pipelines.
 
-1. **Make the gates gate** — native `terraform test` suites with mocked providers,
-   provider-specific tflint rulesets, blocking security scans.
-2. **Release engineering** — per-module tags, changelog, a documented pinning story.
-3. **GPU / AI compute** — `gcp/gke-gpu-nodepool`, `aws/eks-gpu-nodegroup`, `aws/batch-gpu`,
-   plus Modal / Fal managed-platform wrappers.
-4. **Composition layer** — more environments, a state-backend bootstrap module, stacks.
+The organizing idea: **infrastructure cares about runtime shape, not source language.**
+Nine of those languages collapse into one container-service archetype. See
+[docs/ROADMAP.md](docs/ROADMAP.md) for the full plan, the language→archetype map, and
+current state. Near-term shape:
+
+1. **Foundations** — `terraform test` suites with mocked providers, a written module
+   interface standard, blocking security scans, per-module release tags.
+2. **Landing zone** — VPC/networking, secrets, observability baseline, CI OIDC identity.
+   Nothing runs without these.
+3. **Containerized services** — `aws/fargate-service` and `gcp/cloud-run-service`
+   composites with first-class autoscaling, plus deployable stacks.
+4. **Breadth** — serverless & API edge, databases, data lake + ETL, GPU/ML, mobile backends.
 
 ## License
 
