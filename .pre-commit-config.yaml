@@ -24,3 +24,12 @@ repos:
       - id: check-merge-conflict
       - id: check-yaml
       - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: module-catalog
+        name: regenerate README module catalog
+        entry: python3 scripts/gen_catalog.py
+        language: system
+        pass_filenames: false
+        files: ^(modules/.*/metadata\.yaml|README\.md|scripts/gen_catalog\.py)$

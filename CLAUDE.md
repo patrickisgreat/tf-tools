@@ -30,6 +30,8 @@ pre-commit install
 | `make validate` | `init -backend=false` + `validate` every module/example/env (skips `.validate-skip` dirs) |
 | `make lint` | Run tflint |
 | `make docs` | Regenerate module README input/output tables (terraform-docs) |
+| `make catalog` | Regenerate the root README module catalog from `metadata.yaml` files |
+| `make catalog-check` | Verify the catalog is up to date (CI-friendly) |
 | `make new-module DIR=aws/sns` | Scaffold a new module from `modules/_template` |
 
 **Always run `make fmt` and `make validate` before committing.**
@@ -93,7 +95,8 @@ BREAKING CHANGE: callers must rename the `image_count` variable.
 ```
 
 Commit messages are linted on every PR by `.github/workflows/commitlint.yml`
-(config in `commitlint.config.js`).
+(config in `commitlint.config.mjs` — it must be ESM, the action container runs under
+`type: module`).
 
 ### Small, reviewable PRs
 
@@ -110,7 +113,8 @@ Commit messages are linted on every PR by `.github/workflows/commitlint.yml`
 - [ ] `make fmt` is clean and `make validate` passes
 - [ ] `make docs` re-run if any variables/outputs changed
 - [ ] An `examples/basic` example exists/updated and validates
-- [ ] Module `README.md` and the catalog table in root `README.md` are updated
+- [ ] Module `README.md` is updated, `metadata.yaml` is accurate, and `make catalog` re-run
+      (never hand-edit the catalog table — it's generated)
 - [ ] No secrets, `*.tfvars` (only `*.tfvars.example`), state, or `.terraform/` committed
 - [ ] New experimental API-wrapper modules carry a `.validate-skip` file and an
       **Experimental** README banner
