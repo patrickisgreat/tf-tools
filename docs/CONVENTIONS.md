@@ -15,6 +15,7 @@ Every module lives at `modules/<provider>/<name>/` and contains:
 | `versions.tf` | `required_version` + `required_providers` (no `provider` blocks). |
 | `README.md` | Usage + a terraform-docs-generated input/output table. |
 | `metadata.yaml` | Catalog entry: `provider`, `status`, one-line `summary`. |
+| `tests/*.tftest.hcl` | `terraform test` suite against mocked providers. See [TESTING.md](TESTING.md). |
 | `examples/<name>/` | At least one runnable example (`examples/basic/`). |
 
 ## Catalog metadata

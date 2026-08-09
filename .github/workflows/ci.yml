@@ -54,6 +54,25 @@ jobs:
             echo "::endgroup::"
           done
 
+  test:
+    name: terraform test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - name: Run every module test suite against mocked providers
+        run: |
+          set -euo pipefail
+          dirs=$(find modules -type d -name tests -exec dirname {} \; | sort -u)
+          for d in $dirs; do
+            echo "::group::test $d"
+            ( cd "$d" && terraform init -backend=false -input=false -no-color >/dev/null \
+              && terraform test -no-color )
+            echo "::endgroup::"
+          done
+
   tflint:
     name: tflint
     runs-on: ubuntu-latest

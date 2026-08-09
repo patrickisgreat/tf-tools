@@ -18,8 +18,11 @@ resource "aws_sqs_queue" "this" {
   delay_seconds              = var.delay_seconds
   receive_wait_time_seconds  = var.receive_wait_time_seconds
 
-  # SSE-KMS when a key is supplied, otherwise SSE-SQS.
-  sqs_managed_sse_enabled           = local.use_kms ? false : var.sqs_managed_sse_enabled
+  # SSE-KMS when a key is supplied, otherwise SSE-SQS. The two are ConflictsWith
+  # in the provider, and that check fires on an argument being *present* in the
+  # config — setting sqs_managed_sse_enabled to false alongside a key is still a
+  # conflict. Only null actually omits it.
+  sqs_managed_sse_enabled           = local.use_kms ? null : var.sqs_managed_sse_enabled
   kms_master_key_id                 = var.kms_master_key_id
   kms_data_key_reuse_period_seconds = local.use_kms ? var.kms_data_key_reuse_period_seconds : null
 

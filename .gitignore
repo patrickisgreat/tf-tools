@@ -34,4 +34,10 @@ override.tf.json
 .idea/
 .vscode/
 
-# NOTE: .terraform.lock.hcl IS committed for root configs — do not ignore it.
+# Lock files under modules/ are a side effect of `make validate` / `make test`
+# running `terraform init` in every module and example. Reusable modules must not
+# pin providers (see docs/CONVENTIONS.md), so these are local noise.
+#
+# NOTE: .terraform.lock.hcl IS committed for root configs under environments/ —
+# do not ignore it there.
+modules/**/.terraform.lock.hcl

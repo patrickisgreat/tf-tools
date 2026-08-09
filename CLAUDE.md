@@ -28,6 +28,7 @@ pre-commit install
 | `make fmt` | Format all Terraform in place |
 | `make fmt-check` | Verify formatting (CI-friendly) |
 | `make validate` | `init -backend=false` + `validate` every module/example/env (skips `.validate-skip` dirs) |
+| `make test` | Run every module's `terraform test` suite against mocked providers (no credentials) |
 | `make lint` | Run tflint |
 | `make docs` | Regenerate module README input/output tables (terraform-docs) |
 | `make catalog` | Regenerate the root README module catalog from `metadata.yaml` files |
@@ -110,7 +111,10 @@ Commit messages are linted on every PR by `.github/workflows/commitlint.yml`
 
 ### PR checklist
 
-- [ ] `make fmt` is clean and `make validate` passes
+- [ ] `make fmt` is clean, and `make validate` and `make test` pass
+- [ ] The module has a `tests/*.tftest.hcl` suite covering its secure defaults and every
+      `validation` block — and you confirmed an assertion actually fails when the module
+      is broken on purpose (see [docs/TESTING.md](docs/TESTING.md))
 - [ ] `make docs` re-run if any variables/outputs changed
 - [ ] An `examples/basic` example exists/updated and validates
 - [ ] Module `README.md` is updated, `metadata.yaml` is accurate, and `make catalog` re-run
