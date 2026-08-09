@@ -8,7 +8,7 @@ TF_DIRS = $(shell find modules environments -type f -name '*.tf' \
 	-exec dirname {} \; | sort -u | while read d; do \
 	  [ -f "$$d/.validate-skip" ] || echo "$$d"; done)
 
-.PHONY: help fmt fmt-check validate lint docs clean new-module
+.PHONY: help fmt fmt-check validate lint docs catalog catalog-check clean new-module
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -37,6 +37,12 @@ docs: ## Regenerate module README tables via terraform-docs
 	  echo "==> docs $$d"; \
 	  terraform-docs markdown table --output-file README.md --output-mode inject "$$d"; \
 	done
+
+catalog: ## Regenerate the README module catalog from each module's metadata.yaml
+	python3 scripts/gen_catalog.py
+
+catalog-check: ## Verify the README module catalog is up to date (CI-friendly)
+	python3 scripts/gen_catalog.py --check
 
 clean: ## Remove local .terraform dirs and state
 	find . -type d -name ".terraform" -prune -exec rm -rf {} +

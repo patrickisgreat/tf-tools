@@ -14,7 +14,23 @@ Every module lives at `modules/<provider>/<name>/` and contains:
 | `outputs.tf` | All outputs. Every output has a `description`. |
 | `versions.tf` | `required_version` + `required_providers` (no `provider` blocks). |
 | `README.md` | Usage + a terraform-docs-generated input/output table. |
+| `metadata.yaml` | Catalog entry: `provider`, `status`, one-line `summary`. |
 | `examples/<name>/` | At least one runnable example (`examples/basic/`). |
+
+## Catalog metadata
+
+The module table in the root `README.md` is **generated**, not hand-written — a shared
+table is a merge-conflict generator when module PRs land in parallel. Each module owns its
+row via `metadata.yaml`:
+
+```yaml
+provider: AWS               # display name: AWS, GCP, "Replicate (REST)"
+status: stable              # experimental | beta | stable
+summary: One-line description for the catalog table.
+```
+
+Run `make catalog` after adding or editing one. CI runs `make catalog-check` and fails if
+the README is stale.
 
 ## Versioning
 
