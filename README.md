@@ -25,13 +25,14 @@ tf-tools/
 ├── docs/
 │   ├── CONVENTIONS.md       # how modules are written
 │   ├── ADDING_A_MODULE.md   # step-by-step to add a new module
-│   └── ROADMAP.md           # where this is going, and what's missing
+│   ├── ROADMAP.md           # where this is going, and what's missing
+│   └── TESTING.md           # how modules are tested
 ├── scripts/
 │   └── gen_catalog.py       # generates the module catalog table below
-├── .github/workflows/ci.yml # fmt + catalog + validate + tflint + security scan
+├── .github/workflows/ci.yml # fmt + catalog + validate + test + tflint + security
 ├── .pre-commit-config.yaml  # local enforcement of the same checks
 ├── .tflint.hcl
-└── Makefile                 # make fmt / validate / lint / docs / catalog
+└── Makefile                 # make fmt / validate / test / lint / docs / catalog
 ```
 
 ## Two layers
@@ -52,12 +53,15 @@ brew install hashicorp/tap/terraform
 brew install tflint terraform-docs pre-commit              # macOS
 pre-commit install                                         # enable git hooks
 
-# 2. Try an example module in isolation
+# 2. Run the test suites — mocked providers, so no cloud credentials needed
+make test
+
+# 3. Try an example module in isolation
 cd modules/aws/ecr/examples/basic
 terraform init
 terraform plan
 
-# 3. Or deploy an environment
+# 4. Or deploy an environment
 cd environments/dev
 cp terraform.tfvars.example terraform.tfvars   # edit values
 # edit backend.tf (or pass -backend-config) to point at your state bucket
@@ -96,6 +100,8 @@ See [docs/CONVENTIONS.md](docs/CONVENTIONS.md). The short version:
   exactly and commit `.terraform.lock.hcl`.
 - Every variable and output has a `description`. Inputs validate where it's cheap.
 - Modules never declare `provider` blocks — the root config does.
+- Every module carries a `terraform test` suite proving its secure defaults are actually
+  secure. See [docs/TESTING.md](docs/TESTING.md).
 
 ## Roadmap
 

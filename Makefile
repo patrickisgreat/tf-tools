@@ -8,7 +8,10 @@ TF_DIRS = $(shell find modules environments -type f -name '*.tf' \
 	-exec dirname {} \; | sort -u | while read d; do \
 	  [ -f "$$d/.validate-skip" ] || echo "$$d"; done)
 
-.PHONY: help fmt fmt-check validate lint docs catalog catalog-check clean new-module
+# Module directories that carry a `terraform test` suite.
+TEST_DIRS = $(shell find modules -type d -name tests -exec dirname {} \; | sort -u)
+
+.PHONY: help fmt fmt-check validate test lint docs catalog catalog-check clean new-module
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -25,6 +28,13 @@ validate: ## Init (no backend) + validate every module and example
 	  echo "==> validate $$d"; \
 	  ( cd "$$d" && $(TF) init -backend=false -input=false -no-color >/dev/null && \
 	    $(TF) validate -no-color ); \
+	done
+
+test: ## Run every module's terraform test suite (mocked providers, no credentials)
+	@set -e; for d in $(TEST_DIRS); do \
+	  echo "==> test $$d"; \
+	  ( cd "$$d" && $(TF) init -backend=false -input=false -no-color >/dev/null && \
+	    $(TF) test -no-color ); \
 	done
 
 lint: ## Run tflint across the repo
