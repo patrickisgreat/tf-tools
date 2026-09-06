@@ -85,6 +85,7 @@ terraform plan
 | [`aws/sqs`](modules/aws/sqs) | AWS | stable | SQS queue with SSE, FIFO, and dead-letter redrive |
 | [`gcp/artifact-registry`](modules/gcp/artifact-registry) | GCP | stable | Artifact Registry repo for images/packages (GCR/ECR analog) |
 | [`gcp/gcs-bucket`](modules/gcp/gcs-bucket) | GCP | stable | GCS bucket with UBLA, versioning, lifecycle rules, CMEK |
+| [`gcp/project-services`](modules/gcp/project-services) | GCP | stable | Enable Google Cloud service APIs on a project |
 | [`gcp/pubsub`](modules/gcp/pubsub) | GCP | stable | Pub/Sub topic with pull/push subscriptions, filters, DLQ |
 | [`gcp/service-account`](modules/gcp/service-account) | GCP | stable | Service account with project role bindings and optional key |
 | [`replicate/deployment`](modules/replicate/deployment) | Replicate (REST) | **experimental** | Managed AI deployment via the restapi provider |
