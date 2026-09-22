@@ -42,10 +42,16 @@ See [`examples/basic`](examples/basic) for a runnable example.
 | `kms_key_name` | CMEK key for the topic. | `string` | `null` | no |
 | `labels` | Labels for topic + subscriptions. | `map(string)` | `{}` | no |
 | `subscriptions` | List of subscription objects. | `list(object)` | `[]` | no |
+| `publishers` | IAM members granted `roles/pubsub.publisher` on the topic. | `list(string)` | `[]` | no |
 
 Each subscription object: `name`, `ack_deadline_seconds` (10), `message_retention_duration`
 (`"604800s"`), `retain_acked_messages` (false), `enable_message_ordering` (false), `filter`,
-`expiration_ttl`, `push_endpoint`, `dead_letter_topic`, `max_delivery_attempts` (5).
+`expiration_ttl`, `push_endpoint`, `dead_letter_topic`, `max_delivery_attempts` (5),
+`subscribers` (`[]`, IAM members granted `roles/pubsub.subscriber` on that subscription).
+
+IAM grants are resource-level and additive (`*_iam_member`): a publisher can publish to
+this topic only, and bindings made outside the module are never removed. Public members
+(`allUsers`, `allAuthenticatedUsers`) are rejected.
 
 ### Outputs
 

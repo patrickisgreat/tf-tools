@@ -42,3 +42,28 @@ resource "google_pubsub_subscription" "this" {
     }
   }
 }
+
+# Resource-level grants rather than project roles: a publisher on this topic can publish
+# to this topic and nothing else. iam_member is additive, so the module never strips a
+# binding someone else made.
+resource "google_pubsub_topic_iam_member" "publisher" {
+  for_each = toset(var.publishers)
+
+  project = var.project
+  topic   = google_pubsub_topic.this.name
+  role    = "roles/pubsub.publisher"
+  member  = each.value
+}
+
+resource "google_pubsub_subscription_iam_member" "subscriber" {
+  for_each = {
+    for pair in flatten([
+      for s in var.subscriptions : [for m in s.subscribers : { sub = s.name, member = m }]
+    ]) : "${pair.sub}|${pair.member}" => pair
+  }
+
+  project      = var.project
+  subscription = google_pubsub_subscription.this[each.value.sub].name
+  role         = "roles/pubsub.subscriber"
+  member       = each.value.member
+}

@@ -40,6 +40,27 @@ variable "subscriptions" {
     push_endpoint              = optional(string) # null = pull subscription
     dead_letter_topic          = optional(string)
     max_delivery_attempts      = optional(number, 5)
+    subscribers                = optional(list(string), []) # granted roles/pubsub.subscriber on this subscription
   }))
   default = []
+
+  validation {
+    condition = alltrue(flatten([
+      for s in var.subscriptions : [
+        for m in s.subscribers : can(regex("^(user|serviceAccount|group|domain|principal|principalSet):", m))
+      ]
+    ]))
+    error_message = "Each subscriber must be an IAM member string such as \"serviceAccount:x@p.iam.gserviceaccount.com\". allUsers and allAuthenticatedUsers are not accepted."
+  }
+}
+
+variable "publishers" {
+  description = "IAM members granted roles/pubsub.publisher on the topic, e.g. [\"serviceAccount:gmail-api-push@system.gserviceaccount.com\"]. Additive (iam_member), so grants made elsewhere are left alone."
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = alltrue([for m in var.publishers : can(regex("^(user|serviceAccount|group|domain|principal|principalSet):", m))])
+    error_message = "Each publisher must be an IAM member string such as \"serviceAccount:x@p.iam.gserviceaccount.com\". allUsers and allAuthenticatedUsers are not accepted."
+  }
 }
