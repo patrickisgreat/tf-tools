@@ -35,8 +35,11 @@ module "events" {
     {
       name                 = "example-order-events-worker"
       ack_deadline_seconds = 30
+      subscribers          = ["serviceAccount:worker@example-project.iam.gserviceaccount.com"]
     },
   ]
+
+  publishers = ["serviceAccount:orders-api@example-project.iam.gserviceaccount.com"]
 
   labels = {
     team = "platform"
