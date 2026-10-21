@@ -43,11 +43,11 @@ run "project_is_passed_through" {
   command = plan
 
   variables {
-    project = "threaditate-support"
+    project = "example-project"
   }
 
   assert {
-    condition     = google_project_service.this["gmail.googleapis.com"].project == "threaditate-support"
+    condition     = google_project_service.this["gmail.googleapis.com"].project == "example-project"
     error_message = "An explicit project must be wired into the resource rather than falling back to the provider."
   }
 }
