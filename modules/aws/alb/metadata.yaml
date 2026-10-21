@@ -1,0 +1,5 @@
+# Catalog metadata — consumed by scripts/gen_catalog.py to build the module table
+# in the root README.md. Keep summary to one line.
+provider: AWS
+status: stable
+summary: Application load balancer with target group, listeners, TLS redirect and security group

@@ -76,6 +76,7 @@ terraform plan
 <!-- BEGIN_CATALOG -->
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
+| [`aws/alb`](modules/aws/alb) | AWS | stable | Application load balancer with target group, listeners, TLS redirect and security group |
 | [`aws/alb-alarms`](modules/aws/alb-alarms) | AWS | stable | CloudWatch alarms for a service behind an ALB — 5xx rate, latency percentile, unhealthy hosts |
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
 | [`aws/ecs-autoscaling`](modules/aws/ecs-autoscaling) | AWS | stable | ECS service autoscaling with CPU, memory and request-count target tracking |
