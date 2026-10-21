@@ -99,6 +99,19 @@ Commit messages are linted on every PR by `.github/workflows/commitlint.yml`
 (config in `commitlint.config.mjs` — it must be ESM, the action container runs under
 `type: module`).
 
+### Releases are automatic
+
+`.github/workflows/release.yml` runs [release-please](https://github.com/googleapis/release-please)
+on every push to `main`. It keeps one **release PR** open that bumps `version.txt`, updates
+`CHANGELOG.md`, and lists every `feat`/`fix` since the last tag. Merging that PR creates the
+`vX.Y.Z` tag and a GitHub Release. Consumers pin those tags.
+
+- `fix:` bumps patch, `feat:` bumps minor. While we are pre-1.0, `feat!:` /
+  `BREAKING CHANGE:` also bumps minor.
+- `docs`, `chore`, `ci`, `test`, `refactor` never cut a release on their own.
+- Never create version tags by hand and never edit `CHANGELOG.md` or `version.txt` —
+  the release PR owns them. The commit *type* you choose is what decides the version.
+
 ### Small, reviewable PRs
 
 - **One concern per PR.** Aim for small diffs (rule of thumb: < ~400 changed lines). A new

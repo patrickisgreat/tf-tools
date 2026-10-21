@@ -1,0 +1,31 @@
+name: release
+
+# Automatic release tagging driven by Conventional Commits.
+#
+# On every push to main, release-please reads the commits since the last tag
+# and keeps a single "release PR" open that bumps the version, updates
+# CHANGELOG.md and version.txt. Merging that PR creates the vX.Y.Z git tag and
+# a GitHub Release with the generated notes. Nothing is tagged until the
+# release PR is merged, so main can take many PRs between releases.
+#
+# Bump rules (semver, pre-1.0 so breaking changes bump minor, not major):
+#   fix:  -> patch      feat: -> minor      feat!: / BREAKING CHANGE: -> minor
+#   docs/chore/ci/test/refactor -> no release on their own.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: release pr + tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
