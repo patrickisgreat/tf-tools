@@ -1,0 +1,5 @@
+# Catalog metadata — consumed by scripts/gen_catalog.py to build the module table
+# in the root README.md. Keep summary to one line.
+provider: AWS
+status: stable
+summary: CloudWatch alarms for a service behind an ALB — 5xx rate, latency percentile, unhealthy hosts
