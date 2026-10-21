@@ -12,6 +12,11 @@ resource "aws_ecs_task_definition" "this" {
   task_role_arn            = var.task_role_arn
   container_definitions    = var.container_definitions
 
+  runtime_platform {
+    operating_system_family = var.operating_system_family
+    cpu_architecture        = var.cpu_architecture
+  }
+
   tags = var.tags
 }
 
@@ -26,6 +31,11 @@ resource "aws_ecs_service" "this" {
 
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
+
+  deployment_circuit_breaker {
+    enable   = var.deployment_circuit_breaker.enable
+    rollback = var.deployment_circuit_breaker.rollback
+  }
 
   network_configuration {
     subnets          = var.subnet_ids

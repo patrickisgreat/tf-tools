@@ -95,6 +95,32 @@ variable "lb_container_port" {
   default     = null
 }
 
+variable "cpu_architecture" {
+  description = "CPU architecture of the task: X86_64 or ARM64. Must match the image; ARM64 (Graviton) is cheaper for images built for it."
+  type        = string
+  default     = "X86_64"
+
+  validation {
+    condition     = contains(["X86_64", "ARM64"], var.cpu_architecture)
+    error_message = "cpu_architecture must be X86_64 or ARM64."
+  }
+}
+
+variable "operating_system_family" {
+  description = "Operating system family of the task, e.g. LINUX or WINDOWS_SERVER_2022_CORE."
+  type        = string
+  default     = "LINUX"
+}
+
+variable "deployment_circuit_breaker" {
+  description = "Stop a deployment whose tasks keep failing to start or pass health checks, and roll back to the last working task definition."
+  type = object({
+    enable   = optional(bool, true)
+    rollback = optional(bool, true)
+  })
+  default = {}
+}
+
 variable "enable_execute_command" {
   description = "Enable ECS Exec (SSM) for the service."
   type        = bool
