@@ -8,7 +8,7 @@ Enables Google Cloud service APIs on a project.
 module "services" {
   source = "../../modules/gcp/project-services"
 
-  project  = "threaditate-support"
+  project  = "example-project"
   services = [
     "iam.googleapis.com",
     "gmail.googleapis.com",
