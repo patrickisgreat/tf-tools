@@ -77,6 +77,7 @@ terraform plan
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
+| [`aws/ecs-autoscaling`](modules/aws/ecs-autoscaling) | AWS | stable | ECS service autoscaling with CPU, memory and request-count target tracking |
 | [`aws/ecs-service`](modules/aws/ecs-service) | AWS | stable | Fargate/EC2 ECS service + task definition, optional load balancer |
 | [`aws/firehose`](modules/aws/firehose) | AWS | stable | Kinesis Firehose delivery stream to S3 with buffering + compression |
 | [`aws/iam-role`](modules/aws/iam-role) | AWS | stable | IAM role with composable trust policy, managed + inline policies |
