@@ -10,6 +10,14 @@ permissions:
 
 env:
   TF_VERSION: "1.15.6"
+  # Every module, example and environment runs its own `terraform init`. Without
+  # a shared plugin cache each one downloads the AWS provider again and the
+  # runner fills its disk ("no space left on device") once there are enough
+  # directories. The cache keeps one copy and symlinks it into each .terraform.
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+  # Lets init populate a fresh lock file from the cache; the modules' permissive
+  # constraints mean most directories carry no lock file.
+  TF_PLUGIN_CACHE_MAY_BREAK_DEPENDENCY_LOCK_FILE: "1"
 
 jobs:
   fmt:
@@ -41,6 +49,7 @@ jobs:
       - name: Init (no backend) + validate every module and example
         run: |
           set -euo pipefail
+          mkdir -p "$TF_PLUGIN_CACHE_DIR"
           dirs=$(find modules environments -type f -name '*.tf' \
             -exec dirname {} \; | sort -u)
           for d in $dirs; do
@@ -65,6 +74,7 @@ jobs:
       - name: Run every module test suite against mocked providers
         run: |
           set -euo pipefail
+          mkdir -p "$TF_PLUGIN_CACHE_DIR"
           dirs=$(find modules -type d -name tests -exec dirname {} \; | sort -u)
           for d in $dirs; do
             echo "::group::test $d"
