@@ -4,6 +4,18 @@ All notable changes to this repository are recorded here. The file is generated 
 [release-please](https://github.com/googleapis/release-please) from Conventional Commit
 messages; do not edit it by hand.
 
+## [0.2.0](https://github.com/patrickisgreat/tf-tools/compare/v0.1.0...v0.2.0) (2026-10-21)
+
+
+### Features
+
+* **aws/alb-alarms:** add CloudWatch alarm module for services behind an ALB ([#17](https://github.com/patrickisgreat/tf-tools/issues/17)) ([7aefd18](https://github.com/patrickisgreat/tf-tools/commit/7aefd18d91fb4a8156e11b56ee00d8d7454a1e57))
+* **aws/alb:** add application load balancer module with target group, listeners and TLS redirect ([#15](https://github.com/patrickisgreat/tf-tools/issues/15)) ([79f2f8d](https://github.com/patrickisgreat/tf-tools/commit/79f2f8d442fe3e5bbe70a32474371397665db7d7))
+* **aws/ecs-autoscaling:** add target-tracking autoscaling module for ECS services ([#16](https://github.com/patrickisgreat/tf-tools/issues/16)) ([ce6898c](https://github.com/patrickisgreat/tf-tools/commit/ce6898c881117462c8cb9279a5101948da595591))
+* **aws/ecs-cluster:** add ECS cluster module with Container Insights and capacity providers ([#14](https://github.com/patrickisgreat/tf-tools/issues/14)) ([be137a5](https://github.com/patrickisgreat/tf-tools/commit/be137a59d4732673e40310a4883a92085d41bef4))
+* **aws/ecs-service:** add runtime platform, deployment circuit breaker and a test suite ([#18](https://github.com/patrickisgreat/tf-tools/issues/18)) ([2ae16d1](https://github.com/patrickisgreat/tf-tools/commit/2ae16d1f5f130e353dc88e6902c6aea978a939af))
+* **gcp/pubsub:** add resource-level publisher and subscriber IAM inputs ([#13](https://github.com/patrickisgreat/tf-tools/issues/13)) ([fb942f5](https://github.com/patrickisgreat/tf-tools/commit/fb942f5bddece5b4496bde14e1e73e1b168b2551))
+
 ## 0.1.0 (2026-09-06)
 
 First tagged release. Reusable Terraform modules for AWS, GCP, and managed AI/GPU
