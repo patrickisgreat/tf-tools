@@ -6,6 +6,11 @@ and IAM roles (compose with `aws/iam-role`); this module runs your containers.
 Container definitions are passed as a JSON string (the standard escape hatch) so you keep
 full control of the container spec.
 
+Deployments use the ECS circuit breaker with rollback by default, so a release whose tasks
+cannot start or fail their health checks is rolled back to the previous task definition
+instead of looping forever. The task's CPU architecture defaults to `X86_64`; set
+`cpu_architecture = "ARM64"` for images built for Graviton.
+
 ## Usage
 
 ```hcl
@@ -75,6 +80,9 @@ See [`examples/basic`](examples/basic) for a runnable example.
 | `target_group_arn` | LB target group ARN. | `string` | `null` | no |
 | `lb_container_name` | Container for the LB. | `string` | `null` | no |
 | `lb_container_port` | Container port for the LB. | `number` | `null` | no |
+| `cpu_architecture` | `X86_64` or `ARM64`. | `string` | `"X86_64"` | no |
+| `operating_system_family` | OS family of the task. | `string` | `"LINUX"` | no |
+| `deployment_circuit_breaker` | Circuit breaker `enable` / `rollback`. | `object` | `{}` (both on) | no |
 | `enable_execute_command` | Enable ECS Exec. | `bool` | `false` | no |
 | `deployment_minimum_healthy_percent` | Min healthy % on deploy. | `number` | `100` | no |
 | `deployment_maximum_percent` | Max % on deploy. | `number` | `200` | no |
