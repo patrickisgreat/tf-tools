@@ -76,6 +76,7 @@ terraform plan
 <!-- BEGIN_CATALOG -->
 | Module | Provider | Status | Description |
 |--------|----------|--------|-------------|
+| [`aws/alb-alarms`](modules/aws/alb-alarms) | AWS | stable | CloudWatch alarms for a service behind an ALB — 5xx rate, latency percentile, unhealthy hosts |
 | [`aws/ecr`](modules/aws/ecr) | AWS | stable | ECR repository with scanning, encryption, lifecycle + repo policy |
 | [`aws/ecs-service`](modules/aws/ecs-service) | AWS | stable | Fargate/EC2 ECS service + task definition, optional load balancer |
 | [`aws/firehose`](modules/aws/firehose) | AWS | stable | Kinesis Firehose delivery stream to S3 with buffering + compression |
